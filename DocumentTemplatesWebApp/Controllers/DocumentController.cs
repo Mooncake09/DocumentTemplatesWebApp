@@ -31,8 +31,16 @@ public class DocumentController : ControllerBase {
         if (request == null)
             return BadRequest("request body is null");
 
-        var data = JsonConvert.DeserializeObject<RequestModel>(request.ToString());
-        // wordFileHandler.GenerateDocument("Test.docx", "some content");
-        return Ok();
+        try 
+        {
+            var data = JsonConvert.DeserializeObject<Request>(request.ToString());
+            wordFileHandler.GenerateDocument(data.Template, data.Content);
+            return Ok();
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+            return StatusCode(500, e.Message);
+        }
     }
 }

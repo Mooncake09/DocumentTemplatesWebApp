@@ -10,7 +10,7 @@ public abstract class FileHandler
     }
 
     public abstract string GetFileText(string fileName);
-    public abstract void GenerateDocument(string fileName, string content);
+    public abstract void GenerateDocument(string template, Dictionary<string, string> content);
 
     private void EnsureFilesDirExsist() 
     {
