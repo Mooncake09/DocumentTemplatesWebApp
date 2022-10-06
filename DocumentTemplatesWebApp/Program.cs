@@ -2,6 +2,10 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var settings = new Settings();
+builder.Configuration.GetSection("Settings").Bind(settings);
+builder.Services.AddSingleton(settings);
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -16,9 +20,16 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options => {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = string.Empty;
+    });
 }
 
-app.MapGet("/", () => "Hello World!");
+app.MapWhen(url => url.Request.Path.Value != null, 
+app => {
+    app.UseRouting();
+    app.UseEndpoints(endpoint => endpoint.MapControllers());
+});
 
 app.Run();
