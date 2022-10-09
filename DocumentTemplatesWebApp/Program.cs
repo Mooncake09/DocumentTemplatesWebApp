@@ -8,7 +8,6 @@ builder.Configuration.GetSection("Settings").Bind(settings);
 builder.Services.AddSingleton(settings);
 
 builder.Services.AddControllers();
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo {
     Version = "v1",
@@ -28,8 +27,12 @@ if (app.Environment.IsDevelopment())
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = string.Empty;
     });
+    // app.UseSwaggerUI();
+    app.UseDeveloperExceptionPage();
 }
 
+app.UseStaticFiles();
+app.MapFallbackToFile("index.html");
 app.MapWhen(url => url.Request.Path.Value != null, 
 app => {
     app.UseRouting();
