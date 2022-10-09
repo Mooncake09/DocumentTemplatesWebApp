@@ -9,19 +9,19 @@ namespace DocumentTemplatesWebApp.Controllers;
 [Route("api/doc")]
 [ApiController]
 public class DocumentController : ControllerBase {
-    private readonly WordFileHandler wordFileHandler;
-    private readonly Settings settings;
+    private readonly MSWordService _wordService;
+    private readonly Settings _settings;
 
-    public DocumentController(Settings settings)
+    public DocumentController(Settings settings, MSWordService msWordService)
     {
-        this.settings = settings;
-        wordFileHandler = new WordFileHandler(settings);
+        _settings = settings;
+        _wordService = msWordService;
     }
 
     [HttpGet("test")]
     public IActionResult Test() 
     {
-        var result = wordFileHandler.GetFileText("Test.docx");
+        var result = _wordService.GetFileText("Test.docx");
         return Ok(result);
     }
 
@@ -34,7 +34,7 @@ public class DocumentController : ControllerBase {
         try 
         {
             var data = JsonConvert.DeserializeObject<Request>(request.ToString());
-            wordFileHandler.GenerateDocument(data.Template, data.Content);
+            _wordService.GenerateDocument(data.Template, data.Content);
             return Ok();
         }
         catch(Exception e)

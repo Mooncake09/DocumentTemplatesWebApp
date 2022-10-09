@@ -351,6 +351,12 @@ MigrationBackup/
 
 .vscode/
 
+.Docker/
+
 DocumentTemplatesWebApp/Request.json
 
 DocumentTemplatesWebApp/Data/DocumentTemplates/Vacation — копия.docx
+
+Docker/Volumes/
+
+DocumentTemplatesWebApp/Data/SavedFiles/

@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using DocumentTemplatesWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,8 @@ builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiIn
     Title = "Documets generator API",
     Description = "API for generating documents from a template"
 }));
+
+builder.Services.AddTransient<MSWordService>();
 
 var app = builder.Build();
 
