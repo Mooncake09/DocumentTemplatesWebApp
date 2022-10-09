@@ -7,7 +7,7 @@ namespace DocumentTemplatesWebApp.Services;
 
 public class MSWordService : FileHandlerService
 {
-    public MSWordService(Settings settings) : base(settings)
+    public MSWordService(Settings settings, MongoLoggerService logger) : base(settings, logger)
     {
 
     }
@@ -21,7 +21,7 @@ public class MSWordService : FileHandlerService
         }
     }
 
-    public override void GenerateDocument(string template, Dictionary<string, string> replacePatterns)
+    public override async Task GenerateDocument(string template, Dictionary<string, string> replacePatterns)
     {
         try 
         {
@@ -41,14 +41,15 @@ public class MSWordService : FileHandlerService
                         false, RegexOptions.IgnoreCase);
                     }
                 }
-                var newDocPath = Path.Combine(_settings.SavedFilesDirPath, $"Vacation-{DateTime.Now.ToString("yyyy-MM-dd hh-MM-ss")}");
+                var newDocPath = Path.Combine(_settings.SavedFilesDirPath, $"Vacation-{DateTime.Now.ToString("yyyy-MM-dd HH-MM-ss")}");
                 document.SaveAs(newDocPath);
+                await _logger.Log(template);
             }
         }
         catch(Exception e)
         {
-            
+           await _logger.LogError(template, e.Message);
+           throw;
         }
-
     }
 }

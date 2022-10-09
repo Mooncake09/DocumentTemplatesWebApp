@@ -3,14 +3,16 @@ namespace DocumentTemplatesWebApp.Services;
 public abstract class FileHandlerService
 {
     protected readonly Settings _settings;
-    public FileHandlerService(Settings settings)
+    protected readonly MongoLoggerService _logger;
+    public FileHandlerService(Settings settings, MongoLoggerService logger)
     {
         _settings = settings;
+        _logger = logger;
         EnsureFilesDirExsist();
     }
 
     public abstract string GetFileText(string fileName);
-    public abstract void GenerateDocument(string template, Dictionary<string, string> content);
+    public abstract Task GenerateDocument(string template, Dictionary<string, string> content);
 
     private void EnsureFilesDirExsist() 
     {

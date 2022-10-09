@@ -26,7 +26,7 @@ public class DocumentController : ControllerBase {
     }
 
     [HttpPost("word")]
-    public IActionResult GenerateDocument([FromBody] object request) 
+    public async Task<IActionResult> GenerateDocument([FromBody] object request) 
     {
         if (request == null)
             return BadRequest("request body is null");
@@ -34,7 +34,7 @@ public class DocumentController : ControllerBase {
         try 
         {
             var data = JsonConvert.DeserializeObject<Request>(request.ToString());
-            _wordService.GenerateDocument(data.Template, data.Content);
+            await _wordService.GenerateDocument(data.Template, data.Content);
             return Ok();
         }
         catch(Exception e)

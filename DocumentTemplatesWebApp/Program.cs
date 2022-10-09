@@ -17,6 +17,7 @@ builder.Services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiIn
 }));
 
 builder.Services.AddTransient<MSWordService>();
+builder.Services.AddSingleton<MongoLoggerService>();
 
 var app = builder.Build();
 
