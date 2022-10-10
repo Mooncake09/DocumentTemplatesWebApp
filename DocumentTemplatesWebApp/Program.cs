@@ -28,7 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-app.MapFallbackToFile("index.html");
+
 app.MapWhen(url => url.Request.Path.Value != null, 
 app => {
     app.UseRouting();

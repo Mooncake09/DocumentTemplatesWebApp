@@ -31,7 +31,7 @@ const sidebarItems: MenuProps['items'] = [FormOutlined].map(
     };
   },
 );
-
+getTemplates();
 const App: FC = () => (
   <Layout>
     <Header className="header">
