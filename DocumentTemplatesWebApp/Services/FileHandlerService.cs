@@ -14,6 +14,11 @@ public abstract class FileHandlerService
     public abstract string GetFileText(string fileName);
     public abstract Task GenerateDocument(string template, Dictionary<string, string> content);
 
+    public string[] GetTemplatesList()
+    {
+        return Directory.GetFiles(_settings.TemplatesDirPath);
+    }
+
     private void EnsureFilesDirExsist() 
     {
         var savedFilesDirPath = _settings.SavedFilesDirPath;

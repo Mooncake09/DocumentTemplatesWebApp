@@ -43,4 +43,10 @@ public class DocumentController : ControllerBase {
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet("templates")]
+    public IActionResult GetTemplatesList() 
+    {
+        return Ok(_wordService.GetTemplatesList());
+    }
 }

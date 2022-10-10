@@ -3,6 +3,8 @@ import { FormOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Breadcrumb, Layout, Menu } from 'antd';
 import './App.css';
+import getTemplates from '../../Api/getTemplates';
+
 const { Header, Content, Footer, Sider } = Layout;
 
 const navbarItems: MenuProps['items'] = ['Новый документ', 'Сохраненные документы'].map(key => ({

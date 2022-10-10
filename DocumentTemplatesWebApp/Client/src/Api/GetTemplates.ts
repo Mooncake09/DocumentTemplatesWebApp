@@ -1,10 +1,20 @@
 import axios from 'axios';
 
-export const GetTemplates: any = () => 
+type Response = {
+    data: string
+}
+
+export const getTemplates: any = () => 
 {
     try {
-        
-    } catch(e) {
-
+       const response: any = axios.get("api/doc/templates").then(res => {
+        console.log(res);
+       });
+       return response;
+    } 
+    catch(error) {
+        console.error(error);
     }
 }
+
+export default getTemplates;
