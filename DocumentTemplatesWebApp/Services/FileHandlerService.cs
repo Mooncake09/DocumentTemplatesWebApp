@@ -14,9 +14,11 @@ public abstract class FileHandlerService
     public abstract string GetFileText(string fileName);
     public abstract Task GenerateDocument(string template, Dictionary<string, string> content);
 
-    public string[] GetTemplatesList()
+    public IEnumerable<string> GetTemplatesList()
     {
-        return Directory.GetFiles(_settings.TemplatesDirPath);
+        var templates = Directory.GetFiles(_settings.TemplatesDirPath);
+        var files = templates.Select(item => Path.GetFileNameWithoutExtension(item));
+        return files;
     }
 
     private void EnsureFilesDirExsist() 

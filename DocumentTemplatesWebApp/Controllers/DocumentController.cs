@@ -47,6 +47,7 @@ public class DocumentController : ControllerBase {
     [HttpGet("templates")]
     public IActionResult GetTemplatesList() 
     {
-        return Ok("some response to react client");
+        var result = _wordService.GetTemplatesList();
+        return Ok(result);
     }
 }
