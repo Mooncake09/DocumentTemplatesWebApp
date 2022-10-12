@@ -1,6 +1,6 @@
 export type DocumentInputData = {
     template?: string;
-    inputData?: InputData[]
+    content?: {[id: string]: string | number}
 }
 
 type InputData = {

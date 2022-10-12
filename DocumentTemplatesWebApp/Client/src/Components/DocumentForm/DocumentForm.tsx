@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Space, Card, Input, Button } from 'antd';
 import Template, { TemplateField } from '../../Types/Template';
 import DocumentInputData from '../../Types/DocumentInputData';
+import postGenerateDocument from '../../Api/postGenerateDocument';
 
 type Props = {
     template: Template | undefined
@@ -12,7 +13,7 @@ export const DocumentForm: FC<Props> = (props: Props) => {
     const [inputFieldsData, setInputFieldsData] = useState<DocumentInputData>(
     {
         template: props.template?.template,
-        inputData: []
+        content: {}
     });
 
     const { template } = props;
@@ -51,23 +52,29 @@ export const DocumentForm: FC<Props> = (props: Props) => {
     }
 
     const onInputDataChange = (templateFieldData: TemplateField, inputValue: string | number): void => {
-        const newInputData = inputFieldsData.inputData?.concat();
+        const newInputData = inputFieldsData?.content;
+        newInputData![templateFieldData.pattern] = inputValue; 
 
-        const patternElement = newInputData?.find(item => item.pattern === templateFieldData.pattern);
+        // const patternElement = newInputData?.find(item => item.pattern === templateFieldData.pattern);
 
-        if (patternElement) {
-            patternElement.value = inputValue;
-        }
-        else {
-            newInputData?.push({
-                pattern: templateFieldData.pattern,
-                value: inputValue
-            });
-        }
-
+        // if (patternElement) {
+        //     patternElement.value = inputValue;
+        // }
+        // else {
+        //     newInputData?.push({
+        //         pattern: templateFieldData.pattern,
+        //         value: inputValue
+        //     });
+        // }
+        // const dict: {[id: string]: string | number} = {};
+        // newInputData.map(item => {
+        //     dict[`${item.pattern}`] = item.value;
+        // });
+        // console.log({dict});
+        
         setInputFieldsData({
             template: inputFieldsData.template,
-            inputData: newInputData
+            content: newInputData
         });
     }
     
@@ -75,7 +82,7 @@ export const DocumentForm: FC<Props> = (props: Props) => {
         <Space direction="horizontal" size="middle" style={{display: 'flex'}}>
             <Card title={props.template?.title} style={{width: '700px'}}>
                 {getInputFields()}
-                <Button type="primary" style={{marginTop: '10px'}}>Сгенерировать документ</Button>
+                <Button type="primary" style={{marginTop: '10px'}} onClick={() => postGenerateDocument(inputFieldsData)}>Сгенерировать документ</Button>
             </Card>
         </Space>
     );
