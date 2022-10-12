@@ -1,27 +1,24 @@
 import axios from 'axios';
 import Template from "../Types/Template"
 
-type GetTemplateResponse = {
-    data: Template[]
-}
+type Response = Template[];
 
-export const getTemplates = async (): Promise<Template[] | undefined> => 
+export const getTemplates = async (): Promise<Response> => 
 {
     try {
-       const { data } = await axios.get<GetTemplateResponse>("api/doc/templates", {
-        headers: {
-            Accept: 'application/json'
-        }
-       });
-
-       return data.data;
+        const response = await axios.get<Response>("api/doc/templates");
+        console.log({response});
+        
+        return response.data;
     } 
     catch(error) {
         if (axios.isAxiosError(error)) {
             console.error('error message: ', error.message);
+            throw(error);
         } 
         else {
             console.error('unexpected error: ', error);
+            throw(error);
         }
     }
 }

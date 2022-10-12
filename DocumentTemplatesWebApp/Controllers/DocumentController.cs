@@ -11,7 +11,6 @@ namespace DocumentTemplatesWebApp.Controllers;
 public class DocumentController : ControllerBase {
     private readonly MSWordService _wordService;
     private readonly Settings _settings;
-
     public DocumentController(Settings settings, MSWordService msWordService)
     {
         _settings = settings;
