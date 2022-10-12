@@ -7,6 +7,8 @@ export const getTemplates = async (): Promise<Response> =>
 {
     try {
         const response = await axios.get<Response>("api/doc/templates");
+        console.log({data: response.data});
+        
         return response.data;
     } 
     catch(error) {
