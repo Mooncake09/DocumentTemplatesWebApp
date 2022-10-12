@@ -21,6 +21,12 @@ public abstract class FileHandlerService
         return files;
     }
 
+    public IEnumerable<string> GetSavedFilesList() 
+    {
+        var files = Directory.GetFiles(_settings.SavedFilesDirPath);
+        return files.Select(file => Path.GetFileNameWithoutExtension(file));
+    }
+
     private void EnsureFilesDirExsist() 
     {
         var savedFilesDirPath = _settings.SavedFilesDirPath;

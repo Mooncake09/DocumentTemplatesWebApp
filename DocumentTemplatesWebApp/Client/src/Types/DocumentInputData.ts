@@ -3,9 +3,4 @@ export type DocumentInputData = {
     content?: {[id: string]: string | number}
 }
 
-type InputData = {
-    pattern: string;
-    value: string | number;
-}
-
 export default DocumentInputData;

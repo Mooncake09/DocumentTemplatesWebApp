@@ -54,23 +54,6 @@ export const DocumentForm: FC<Props> = (props: Props) => {
     const onInputDataChange = (templateFieldData: TemplateField, inputValue: string | number): void => {
         const newInputData = inputFieldsData?.content;
         newInputData![templateFieldData.pattern] = inputValue; 
-
-        // const patternElement = newInputData?.find(item => item.pattern === templateFieldData.pattern);
-
-        // if (patternElement) {
-        //     patternElement.value = inputValue;
-        // }
-        // else {
-        //     newInputData?.push({
-        //         pattern: templateFieldData.pattern,
-        //         value: inputValue
-        //     });
-        // }
-        // const dict: {[id: string]: string | number} = {};
-        // newInputData.map(item => {
-        //     dict[`${item.pattern}`] = item.value;
-        // });
-        // console.log({dict});
         
         setInputFieldsData({
             template: inputFieldsData.template,

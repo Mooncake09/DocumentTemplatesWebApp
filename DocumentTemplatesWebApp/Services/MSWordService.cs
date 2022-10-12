@@ -14,7 +14,7 @@ public class MSWordService : FileHandlerService
 
     public override string GetFileText(string fileName) 
     {
-        var filePath = Path.Combine(_settings.TemplatesDirPath, fileName);
+        var filePath = Path.Combine(_settings.SavedFilesDirPath, fileName);
         using (var document = DocX.Load(filePath)) {
             var result = document.Text;
             return result;
@@ -44,7 +44,8 @@ public class MSWordService : FileHandlerService
                 var newDocPath = Path.Combine(_settings.SavedFilesDirPath, $"Vacation-{DateTime.Now.ToString("yyyy-MM-dd HH-MM-ss")}");
                 document.SaveAs(newDocPath);
                 await _logger.Log(template);
-                return $"{newDocPath}.docx";
+
+                return Path.GetFileName(newDocPath);
             }
         }
         catch(Exception e)
