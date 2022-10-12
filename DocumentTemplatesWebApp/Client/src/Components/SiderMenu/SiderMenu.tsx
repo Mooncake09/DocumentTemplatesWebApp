@@ -7,7 +7,8 @@ const { Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
 type Props = {
-  templates: string[]
+  templates: string[],
+  changeTemplate: Function
 }
 
 function getItem(
@@ -29,16 +30,8 @@ function getItem(
 }
 
 export const SiderMenu: FC<Props> = (props: Props) => {
+  const { templates, changeTemplate } = props;
 
-  const { templates } = props;
-  const [template, setTemplate] = useState<string>("not chosen");
-
-  const changeTemplate = (template: string) => {
-    setTemplate(template);
-  }
-
-  console.log(template);
-  
   return(
       <Sider className="site-layout-background" width={200}>
           <Menu

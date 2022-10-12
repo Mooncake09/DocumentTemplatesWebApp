@@ -1,11 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Space } from 'antd';
+import { Space, Card } from 'antd';
+import Template from '../../Types/Template';
 
-export const DocumentForm: FC = () => {
+type Props = {
+    template: Template | undefined
+}
+
+export const DocumentForm: FC<Props> = (props: Props) => {
     
     return (
-        <Space>
-            
+        <Space direction="horizontal" size="middle" style={{display: 'flex'}}>
+            {props.template?.title}
         </Space>
     );
 }
