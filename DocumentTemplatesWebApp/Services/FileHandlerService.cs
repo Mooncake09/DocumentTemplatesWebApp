@@ -13,20 +13,29 @@ public abstract class FileHandlerService
 
     public abstract string GetFileText(string fileName);
     public abstract Task<string> GenerateDocument(string template, Dictionary<string, string> content);
-
+    
+    /// <summary>
+    /// Получить список всех доступных шаблонов документов
+    /// </summary>
+    /// <returns>Список всех шаблонов документов</returns>
     public IEnumerable<string> GetTemplatesList()
     {
         var templates = Directory.GetFiles(_settings.TemplatesDirPath);
         var files = templates.Select(item => Path.GetFileNameWithoutExtension(item));
         return files;
     }
-
+    /// <summary>
+    /// Возвращает список всех сохраненных документов
+    /// </summary>
+    /// <returns>Список сохраненных файлов</returns>
     public IEnumerable<string> GetSavedFilesList() 
     {
         var files = Directory.GetFiles(_settings.SavedFilesDirPath);
         return files.Select(file => Path.GetFileNameWithoutExtension(file));
     }
-
+    /// <summary>
+    /// Проверяет существуют ли нужные для работы приложения директории
+    /// </summary>
     private void EnsureFilesDirExsist() 
     {
         var savedFilesDirPath = _settings.SavedFilesDirPath;

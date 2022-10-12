@@ -11,7 +11,11 @@ public class MSWordService : FileHandlerService
     {
 
     }
-
+    /// <summary>
+    /// Возвращает текстовое содержимое документа
+    /// </summary>
+    /// <param name="fileName">имя документа</param>
+    /// <returns>текстовое содержимое документа fileName</returns>
     public override string GetFileText(string fileName) 
     {
         var filePath = Path.Combine(_settings.SavedFilesDirPath, fileName);
@@ -20,7 +24,13 @@ public class MSWordService : FileHandlerService
             return result;
         }
     }
-    
+
+    /// <summary>
+    /// Генерирует документ из полученных данных
+    /// </summary>
+    /// <param name="template">Имя шаблона из которого будет генерировать готовый документ</param>
+    /// <param name="replacePatterns">Dictionary, где ключ - это название параметра в шаблоне</param>
+    /// <returns>Название сгенерированного документа</returns>
     public override async Task<string> GenerateDocument(string template, Dictionary<string, string> replacePatterns)
     {
         try 

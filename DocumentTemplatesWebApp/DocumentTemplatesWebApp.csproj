@@ -12,6 +12,7 @@
     <SpaProxyServerUrl>http://localhost:3000</SpaProxyServerUrl>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

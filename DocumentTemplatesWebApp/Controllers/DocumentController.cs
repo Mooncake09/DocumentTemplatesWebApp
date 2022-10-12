@@ -17,14 +17,11 @@ public class DocumentController : ControllerBase {
         _settings = settings;
         _wordService = msWordService;
     }
-
-    [HttpGet("test")]
-    public IActionResult Test() 
-    {
-        var result = _wordService.GetFileText("Test.docx");
-        return Ok(result);
-    }
-
+    /// <summary>
+    /// Запрос на генерацию нового документа
+    /// </summary>
+    /// <param name="request">json, содержащий название шаблона и значения для генерации нового документа</param>
+    /// <returns>возвращает полученный в ходе генерации файл</returns>
     [HttpPost("word")]
     public async Task<IActionResult> GenerateDocument([FromBody] object request) 
     {
@@ -46,17 +43,30 @@ public class DocumentController : ControllerBase {
         }
     }
     
+    /// <summary>
+    /// Получить список всех доступных шаблнов
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("templates")]
     public IActionResult GetTemplatesList() 
     {
         return Ok(_settings.Documents);
     }
 
+    /// <summary>
+    /// Получить список всех сохраненных файлов
+    /// </summary>
+    /// <returns></returns>
     [HttpGet("savedFiles")]
     public IActionResult GetSavedFilesList() 
     {
         return Ok(_wordService.GetSavedFilesList());
     }
+    /// <summary>
+    /// Загрузить файл
+    /// </summary>
+    /// <param name="fileName">имя файла</param>
+    /// <returns>файл fileName</returns>
     [HttpGet("savedFile/{fileName}")]
     public async Task<IActionResult> DownloadFile(string fileName)
     {
