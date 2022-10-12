@@ -20,8 +20,8 @@ public class MSWordService : FileHandlerService
             return result;
         }
     }
-
-    public override async Task GenerateDocument(string template, Dictionary<string, string> replacePatterns)
+    
+    public override async Task<string> GenerateDocument(string template, Dictionary<string, string> replacePatterns)
     {
         try 
         {
@@ -44,6 +44,7 @@ public class MSWordService : FileHandlerService
                 var newDocPath = Path.Combine(_settings.SavedFilesDirPath, $"Vacation-{DateTime.Now.ToString("yyyy-MM-dd HH-MM-ss")}");
                 document.SaveAs(newDocPath);
                 await _logger.Log(template);
+                return $"{newDocPath}.docx";
             }
         }
         catch(Exception e)

@@ -33,8 +33,11 @@ public class DocumentController : ControllerBase {
         try 
         {
             var data = JsonConvert.DeserializeObject<Request>(request.ToString());
-            await _wordService.GenerateDocument(data.Template, data.Content);
-            return Ok();
+            var filePath = await _wordService.GenerateDocument(data.Template, data.Content);
+            
+            var content = await System.IO.File.ReadAllBytesAsync(filePath);
+            var contentType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+            return File(content, contentType, Path.GetFileNameWithoutExtension(filePath));
         }
         catch(Exception e)
         {

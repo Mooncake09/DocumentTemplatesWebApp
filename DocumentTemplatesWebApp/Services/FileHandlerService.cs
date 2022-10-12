@@ -12,7 +12,7 @@ public abstract class FileHandlerService
     }
 
     public abstract string GetFileText(string fileName);
-    public abstract Task GenerateDocument(string template, Dictionary<string, string> content);
+    public abstract Task<string> GenerateDocument(string template, Dictionary<string, string> content);
 
     public IEnumerable<string> GetTemplatesList()
     {
